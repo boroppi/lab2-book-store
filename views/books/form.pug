@@ -1,0 +1,26 @@
+form(action=(book ? `/books/update` : "/books"), method="POST")
+  if book
+    input(type="hidden", name="id", value=book.id)
+
+  .form-group
+    label Title
+    input.form-control(name="book[title]", required, value=(book ? book.title : null))
+
+  .form-group
+    label Author
+    textarea.form-control(name="book[author]")
+      = book ? book.author : null
+
+  .form-group
+    label Publisher
+    textarea.form-control(name="book[publisher]")
+      = book ? book.publisher : null
+
+  .form-group
+    label Genre
+    select.form-control(name="book[genre]", required)
+      each genre in ["SCI-FI", "DRAMA", "NOVEL", "ART", "HISTORY", "BIOGRAPHY", "POEM"]
+        option(value=genre, selected=(book && book.genre === genre ? true : false))= genre.toLowerCase()
+  
+  .form-group
+    button.btn.btn-dark(type="submit") Submit
